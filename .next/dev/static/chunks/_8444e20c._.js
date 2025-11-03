@@ -27,6 +27,8 @@ function LoadingPage() {
     const [i, setI] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(0);
     const minTimer = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
     const canLeave = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(false);
+    const [progress, setProgress] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(0); // 0..1 for slow bar
+    const [fastPct, setFastPct] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(0); // 0..100 cycling quickly
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "LoadingPage.useEffect": ()=>{
             const rot = setInterval({
@@ -39,6 +41,25 @@ function LoadingPage() {
                     canLeave.current = true;
                 }
             }["LoadingPage.useEffect"], 5000);
+            // Animate slow progress bar to 100% over ~5s
+            let raf = 0;
+            const start = performance.now();
+            const tick = {
+                "LoadingPage.useEffect.tick": (t)=>{
+                    const p = Math.min(1, (t - start) / 5000);
+                    setProgress(p);
+                    if (p < 1) raf = requestAnimationFrame(tick);
+                }
+            }["LoadingPage.useEffect.tick"];
+            raf = requestAnimationFrame(tick);
+            // Rapidly cycle displayed percent 0-100
+            const cycle = setInterval({
+                "LoadingPage.useEffect.cycle": ()=>{
+                    setFastPct({
+                        "LoadingPage.useEffect.cycle": (prev)=>prev >= 100 ? 0 : prev + 5
+                    }["LoadingPage.useEffect.cycle"]);
+                }
+            }["LoadingPage.useEffect.cycle"], 35);
             fetch('/api/transactions').then({
                 "LoadingPage.useEffect": (r)=>r.json()
             }["LoadingPage.useEffect"]).finally({
@@ -62,6 +83,8 @@ function LoadingPage() {
             return ({
                 "LoadingPage.useEffect": ()=>{
                     clearInterval(rot);
+                    clearInterval(cycle);
+                    cancelAnimationFrame(raf);
                     if (minTimer.current) clearTimeout(minTimer.current);
                 }
             })["LoadingPage.useEffect"];
@@ -79,27 +102,27 @@ function LoadingPage() {
                         className: "absolute inset-0 rounded-full border-[10px] border-[#190b0d]"
                     }, void 0, false, {
                         fileName: "[project]/app/loading/page.tsx",
-                        lineNumber: 45,
+                        lineNumber: 64,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "absolute inset-2 rounded-full bg-gradient-to-br from-[#2b0a0f] to-[#0f0a0a] shadow-[0_0_80px_#ff174433]"
                     }, void 0, false, {
                         fileName: "[project]/app/loading/page.tsx",
-                        lineNumber: 46,
+                        lineNumber: 65,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "absolute inset-0 rounded-full border-[10px] border-t-[#ff1744] border-r-transparent border-b-transparent border-l-transparent animate-spin [animation-duration:1400ms]"
                     }, void 0, false, {
                         fileName: "[project]/app/loading/page.tsx",
-                        lineNumber: 47,
+                        lineNumber: 66,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/loading/page.tsx",
-                lineNumber: 44,
+                lineNumber: 63,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -107,38 +130,45 @@ function LoadingPage() {
                 children: phrases[i]
             }, void 0, false, {
                 fileName: "[project]/app/loading/page.tsx",
-                lineNumber: 49,
+                lineNumber: 68,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "w-[560px] max-w-[90vw] h-2 rounded-full bg-[#1f1b1b] overflow-hidden",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "h-full bg-[#ff1744] animate-[bar_2.2s_ease_infinite]"
+                    className: "h-full bg-[#ff1744] transition-[width] duration-200 ease-out",
+                    style: {
+                        width: `${Math.max(2, Math.round(progress * 100))}%`
+                    }
                 }, void 0, false, {
                     fileName: "[project]/app/loading/page.tsx",
-                    lineNumber: 51,
+                    lineNumber: 70,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/loading/page.tsx",
-                lineNumber: 50,
+                lineNumber: 69,
                 columnNumber: 7
             }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("style", {
-                children: `@keyframes bar{0%{width:0%}50%{width:85%}100%{width:0%}}`
-            }, void 0, false, {
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "mt-3 text-gray-400 text-sm",
+                children: [
+                    Math.min(100, fastPct),
+                    "%"
+                ]
+            }, void 0, true, {
                 fileName: "[project]/app/loading/page.tsx",
-                lineNumber: 53,
+                lineNumber: 75,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/loading/page.tsx",
-        lineNumber: 43,
+        lineNumber: 62,
         columnNumber: 5
     }, this);
 }
-_s(LoadingPage, "eQp0pNnUUviwIMbd+kYbG0iYVa0=", false, function() {
+_s(LoadingPage, "GgBcx/xx1YHDAX6X+fUCdtFRWB8=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"]
     ];

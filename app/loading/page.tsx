@@ -16,10 +16,27 @@ export default function LoadingPage() {
   const [i, setI] = useState(0);
   const minTimer = useRef<NodeJS.Timeout | null>(null);
   const canLeave = useRef(false);
+  const [progress, setProgress] = useState(0); // 0..1 for slow bar
+  const [fastPct, setFastPct] = useState(0);   // 0..100 cycling quickly
 
   useEffect(() => {
     const rot = setInterval(() => setI(p => (p + 1) % phrases.length), 1100);
     minTimer.current = setTimeout(() => { canLeave.current = true; }, 5000);
+
+    // Animate slow progress bar to 100% over ~5s
+    let raf = 0;
+    const start = performance.now();
+    const tick = (t: number) => {
+      const p = Math.min(1, (t - start) / 5000);
+      setProgress(p);
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+
+    // Rapidly cycle displayed percent 0-100
+    const cycle = setInterval(() => {
+      setFastPct(prev => (prev >= 100 ? 0 : prev + 5));
+    }, 35);
 
     fetch('/api/transactions')
       .then(r => r.json())
@@ -35,6 +52,8 @@ export default function LoadingPage() {
 
     return () => {
       clearInterval(rot);
+      clearInterval(cycle);
+      cancelAnimationFrame(raf);
       if (minTimer.current) clearTimeout(minTimer.current);
     };
   }, [router]);
@@ -48,9 +67,12 @@ export default function LoadingPage() {
       </div>
       <div className="text-3xl md:text-4xl font-semibold text-gray-200 mb-4">{phrases[i]}</div>
       <div className="w-[560px] max-w-[90vw] h-2 rounded-full bg-[#1f1b1b] overflow-hidden">
-        <div className="h-full bg-[#ff1744] animate-[bar_2.2s_ease_infinite]" />
+        <div
+          className="h-full bg-[#ff1744] transition-[width] duration-200 ease-out"
+          style={{ width: `${Math.max(2, Math.round(progress * 100))}%` }}
+        />
       </div>
-      <style>{`@keyframes bar{0%{width:0%}50%{width:85%}100%{width:0%}}`}</style>
+      <div className="mt-3 text-gray-400 text-sm">{Math.min(100, fastPct)}%</div>
     </main>
   );
 }

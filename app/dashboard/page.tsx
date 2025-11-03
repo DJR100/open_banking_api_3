@@ -6,7 +6,7 @@ import 'chart.js/auto';
 import { bucket } from '@/lib/classify';
 import {
   totalLost as sumLoss, biggestLosingWeek, favouriteVenue,
-  mostActiveTime, percentileRank, realityCheck, leaderboardRows
+  percentileRank, realityCheck, leaderboardRows
 } from '@/lib/insights';
 
 type Period = 'year' | 'month' | 'week' | 'day';
@@ -32,10 +32,48 @@ export default function Dashboard() {
   const loss = useMemo(() => sumLoss(txns), [txns]);
   const weekMax = useMemo(() => biggestLosingWeek(txns), [txns]);
   const fav = useMemo(() => favouriteVenue(txns), [txns]);
-  const active = useMemo(() => mostActiveTime(txns), [txns]);
   const pct = useMemo(() => percentileRank(loss), [loss]);
   const rc = useMemo(() => realityCheck(loss), [loss]);
   const rows = useMemo(() => leaderboardRows(txns, true).slice(0, 4), [txns]);
+  const cards = useMemo(() => [
+    {
+      key: 'invested',
+      content: (
+        <>
+          If you'd invested that in an S&SP500 ETF: <span className="font-semibold">{gbp.format(rc.invested)}</span> today
+        </>
+      ),
+    },
+    {
+      key: 'meals',
+      content: (
+        <>
+          That's: <span className="font-semibold">{intFmt.format(rc.meals)}</span> Tesco Meal Deals
+        </>
+      ),
+    },
+    {
+      key: 'entertainment',
+      content: (
+        <>
+          Equivalent to: Funding <span className="font-semibold">{intFmt.format(rc.entertainment)}</span> Love Island season in bets
+        </>
+      ),
+    },
+    {
+      key: 'travel',
+      content: (
+        <>
+          Enough to buy: <span className="font-semibold">{rc.travel}</span>
+        </>
+      ),
+    },
+  ], [rc]);
+  const [rcIdx, setRcIdx] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setRcIdx(i => (i + 1) % cards.length), 4000);
+    return () => clearInterval(id);
+  }, [cards.length]);
 
   const hasAnyGamblingThisView = dataVals.some(v => v > 0);
 
@@ -46,7 +84,7 @@ export default function Dashboard() {
         <a href="/share" className="inline-block px-3 py-2 rounded bg-[#ff1744] hover:bg-[#d5133a] text-white text-sm">Share My Damage</a>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mb-5">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-5">
         <div className="rounded-lg border border-white/10 bg-[#0f1115] p-4 text-center">
           <div className="text-xs text-gray-500 mb-2">Total Lost</div>
           <div className="text-2xl font-semibold text-[#ff1744]">{gbp.format(loss)}</div>
@@ -58,11 +96,6 @@ export default function Dashboard() {
         <div className="rounded-lg border border-white/10 bg-[#0f1115] p-4 text-center">
           <div className="text-xs text-gray-500 mb-2">Favourite Venue</div>
           <div className="text-2xl font-semibold">{fav}</div>
-        </div>
-        <div className="rounded-lg border border-white/10 bg-[#0f1115] p-4 text-center">
-          <div className="text-xs text-gray-500 mb-2">Most Active Time</div>
-          <div className="text-2xl font-semibold">{active.label}</div>
-          <div className="text-xs text-gray-500 mt-1">{active.tagline}</div>
         </div>
       </div>
 
@@ -117,23 +150,31 @@ export default function Dashboard() {
         )}
       </div>
 
-      <section className="rounded-lg border border-white/10 bg-[#0f1115] p-4 mb-6">
+      <section className="rounded-lg border border-white/10 bg-[#0f1115] p-6 mb-6">
         <h2 className="text-lg font-semibold mb-2">Reality Check</h2>
-        <div className="text-xs text-gray-500 mb-3">What you could have had instead</div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <div className="p-3 rounded border">
-            If you'd invested that in an S&amp;P500 ETF: <span className="font-semibold">{gbp.format(rc.invested)}</span> today
+        <div className="text-xs text-gray-500 mb-4">What you could have had instead</div>
+        <div className="relative max-w-3xl mx-auto">
+          <div
+            key={cards[rcIdx].key}
+            className="p-6 rounded-2xl border border-[#ff1744]/40 bg-[radial-gradient(120%_120%_at_30%_10%,#2a0c10_0%,#101318_60%)] shadow-[0_0_40px_#ff174422]"
+            style={{ animation: 'popIn 400ms ease' }}
+            onClick={() => setRcIdx((rcIdx + 1) % cards.length)}
+          >
+            <div className="text-base md:text-lg leading-relaxed">
+              {cards[rcIdx].content}
+            </div>
           </div>
-          <div className="p-3 rounded border">
-            That's: <span className="font-semibold">{intFmt.format(rc.meals)}</span> Tesco Meal Deals
+          <div className="mt-3 flex items-center justify-center gap-2">
+            {cards.map((_, idx) => (
+              <span
+                key={idx}
+                className={`h-1.5 w-6 rounded-full ${idx === rcIdx ? 'bg-[#ff1744]' : 'bg-white/15'}`}
+              />
+            ))}
           </div>
-          <div className="p-3 rounded border">
-            Equivalent to: Funding <span className="font-semibold">{intFmt.format(rc.entertainment)}</span> Love Island season in bets
-          </div>
-          <div className="p-3 rounded border">
-            Enough to buy: <span className="font-semibold">{rc.travel}</span>
-          </div>
+          <div className="mt-2 text-xs text-gray-500">Click card to skip</div>
         </div>
+        <style>{`@keyframes popIn{0%{opacity:0;transform:translateY(6px) scale(.98)}100%{opacity:1;transform:translateY(0) scale(1)}}`}</style>
       </section>
 
       <section className="rounded-lg border border-white/10 bg-[#0f1115] p-4">

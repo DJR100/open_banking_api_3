@@ -5,7 +5,7 @@ html, body {
 }
 
 :root {
-  --brand: #4169E1;
+  --brand: #ff1744; /* primary red */
 }
 
 ::selection {

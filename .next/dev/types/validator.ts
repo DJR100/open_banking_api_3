@@ -58,10 +58,37 @@ type ApiRouteConfig = {
   type __Unused = __Check
 }
 
+// Validate ../../../app/leaderboard/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/leaderboard">> = Specific
+  const handler = {} as typeof import("../../../app/leaderboard/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../../app/loading/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/loading">> = Specific
+  const handler = {} as typeof import("../../../app/loading/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../../app/page.tsx
 {
   type __IsExpected<Specific extends AppPageConfig<"/">> = Specific
   const handler = {} as typeof import("../../../app/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../../app/share/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/share">> = Specific
+  const handler = {} as typeof import("../../../app/share/page.js")
   type __Check = __IsExpected<typeof handler>
   // @ts-ignore
   type __Unused = __Check

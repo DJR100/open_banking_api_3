@@ -39,41 +39,83 @@ function ConnectPage() {
             })
         });
         if (!r.ok) return alert('Token exchange failed');
-        window.location.href = '/dashboard';
+        window.location.href = '/loading';
     };
     const { open, ready } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$plaid$2d$link$2f$dist$2f$index$2e$umd$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePlaidLink"])({
         token: linkToken || '',
         onSuccess
     });
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
-        className: "p-8 max-w-xl mx-auto",
+        className: "relative p-8 max-w-3xl mx-auto text-center",
         children: [
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                className: "text-2xl font-semibold mb-4",
-                children: "Connect your bank"
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "absolute inset-0 -z-10 opacity-30 pointer-events-none",
+                style: {
+                    background: 'radial-gradient(60% 60% at 50% 30%, #ff1744 0%, transparent 55%), radial-gradient(40% 40% at 70% 80%, #ff1744 0%, transparent 55%)'
+                }
             }, void 0, false, {
                 fileName: "[project]/app/page.tsx",
                 lineNumber: 30,
                 columnNumber: 7
             }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                disabled: !ready || !linkToken,
-                onClick: ()=>open(),
-                className: "px-4 py-2 rounded bg-[#4169E1] hover:bg-[#3657c7] text-white disabled:opacity-50 shadow-md",
-                children: linkToken ? 'Connect with Plaid' : 'Preparing…'
-            }, void 0, false, {
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
+                className: "text-5xl md:text-7xl font-extrabold tracking-tight leading-tight",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                        className: "block text-white",
+                        children: "Expose your"
+                    }, void 0, false, {
+                        fileName: "[project]/app/page.tsx",
+                        lineNumber: 33,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                        className: "block text-[#ff1744]",
+                        children: "gambling addiction."
+                    }, void 0, false, {
+                        fileName: "[project]/app/page.tsx",
+                        lineNumber: 34,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
                 fileName: "[project]/app/page.tsx",
                 lineNumber: 32,
                 columnNumber: 7
             }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                className: "mt-4 text-lg text-gray-400",
+                children: "Your bank knows. The house knows. It's time you knew."
+            }, void 0, false, {
+                fileName: "[project]/app/page.tsx",
+                lineNumber: 36,
+                columnNumber: 7
+            }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "my-6 flex items-center gap-2",
+                className: "mt-8",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                    disabled: !ready || !linkToken,
+                    onClick: ()=>open(),
+                    className: "px-6 py-3 rounded bg-[#ff1744] hover:bg-[#d5133a] text-white disabled:opacity-50 shadow-[0_0_30px_#ff1744AA]",
+                    children: linkToken ? 'Connect your bank and face the truth →' : 'Preparing…'
+                }, void 0, false, {
+                    fileName: "[project]/app/page.tsx",
+                    lineNumber: 39,
+                    columnNumber: 9
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/app/page.tsx",
+                lineNumber: 38,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "my-8 flex items-center gap-2",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "flex-1 h-px bg-gray-200"
+                        className: "flex-1 h-px bg-white/10"
                     }, void 0, false, {
                         fileName: "[project]/app/page.tsx",
-                        lineNumber: 41,
+                        lineNumber: 49,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -81,20 +123,20 @@ function ConnectPage() {
                         children: "or"
                     }, void 0, false, {
                         fileName: "[project]/app/page.tsx",
-                        lineNumber: 42,
+                        lineNumber: 50,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "flex-1 h-px bg-gray-200"
+                        className: "flex-1 h-px bg-white/10"
                     }, void 0, false, {
                         fileName: "[project]/app/page.tsx",
-                        lineNumber: 43,
+                        lineNumber: 51,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 40,
+                lineNumber: 48,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -105,38 +147,39 @@ function ConnectPage() {
                         children: "Upload a statement (CSV):"
                     }, void 0, false, {
                         fileName: "[project]/app/page.tsx",
-                        lineNumber: 47,
+                        lineNumber: 55,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
                         action: "/api/upload-csv",
                         method: "post",
                         encType: "multipart/form-data",
+                        className: "flex justify-center",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                className: "border p-1 rounded",
+                                className: "border border-white/10 bg-black/20 text-white p-1 rounded",
                                 type: "file",
                                 name: "file",
                                 accept: ".csv",
                                 required: true
                             }, void 0, false, {
                                 fileName: "[project]/app/page.tsx",
-                                lineNumber: 49,
+                                lineNumber: 57,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                className: "ml-2 px-3 py-1 rounded border border-[#4169E1] text-[#4169E1] hover:bg-[#4169E1] hover:text-white transition-colors",
+                                className: "ml-2 px-3 py-1 rounded border border-[#ff1744] text-[#ff1744] hover:bg-[#ff1744] hover:text-white transition-colors",
                                 type: "submit",
                                 children: "Upload"
                             }, void 0, false, {
                                 fileName: "[project]/app/page.tsx",
-                                lineNumber: 50,
+                                lineNumber: 58,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/page.tsx",
-                        lineNumber: 48,
+                        lineNumber: 56,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -145,44 +188,44 @@ function ConnectPage() {
                             "Need sample data? Download",
                             ' ',
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
-                                className: "underline text-[#4169E1]",
+                                className: "underline text-[#ff1744]",
                                 href: "/samples/small.csv",
                                 children: "small.csv"
                             }, void 0, false, {
                                 fileName: "[project]/app/page.tsx",
-                                lineNumber: 54,
+                                lineNumber: 62,
                                 columnNumber: 11
                             }, this),
                             " or",
                             ' ',
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
-                                className: "underline text-[#4169E1]",
+                                className: "underline text-[#ff1744]",
                                 href: "/samples/large.csv",
                                 children: "large.csv"
                             }, void 0, false, {
                                 fileName: "[project]/app/page.tsx",
-                                lineNumber: 55,
+                                lineNumber: 63,
                                 columnNumber: 11
                             }, this),
                             "."
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/page.tsx",
-                        lineNumber: 52,
+                        lineNumber: 60,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 46,
+                lineNumber: 54,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                className: "text-sm text-gray-500 mt-6",
-                children: "In-memory demo. No data is stored."
+                className: "text-xs text-gray-500 mt-10",
+                children: "We promise not to tell your girlfriend."
             }, void 0, false, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 59,
+                lineNumber: 67,
                 columnNumber: 7
             }, this)
         ]

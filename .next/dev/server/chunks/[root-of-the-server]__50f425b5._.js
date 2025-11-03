@@ -175,12 +175,25 @@ async function handler(req, res) {
                 'currency',
                 'Currency'
             ]) || 'GBP';
+            const timeRaw = pick(r, [
+                'time',
+                'Time',
+                'Transaction Time'
+            ]);
             const amtNum = Number(String(amountRaw || '0').replace(/,/g, ''));
             const cat = typeof catRaw === 'string' ? catRaw.split(/[>,]/).map((s)=>s.trim()).filter(Boolean) : Array.isArray(catRaw) ? catRaw : [];
+            let datetime = null;
+            if (dateStr && timeRaw) {
+                const tClean = String(timeRaw).trim();
+                const maybeIso = new Date(`${dateStr} ${tClean}`);
+                if (!isNaN(maybeIso.getTime())) {
+                    datetime = maybeIso.toISOString();
+                }
+            }
             return {
                 id: r.id || r.transaction_id || `csv-${i}-${dateStr}`,
                 date: dateStr,
-                datetime: null,
+                datetime,
                 amount: isFinite(amtNum) ? amtNum : 0,
                 merchant_name: String(merchantRaw || 'Unknown'),
                 mcc: mccRaw ? String(mccRaw) : null,
@@ -194,9 +207,9 @@ async function handler(req, res) {
         try {
             __TURBOPACK__imported__module__$5b$externals$5d2f$node$3a$fs__$5b$external$5d$__$28$node$3a$fs$2c$__cjs$29$__["default"].unlinkSync(filepath);
         } catch  {}
-        // Redirect to dashboard
+        // Redirect to loading (then dashboard)
         res.writeHead(303, {
-            Location: '/dashboard'
+            Location: '/loading'
         });
         res.end();
     } catch (e) {

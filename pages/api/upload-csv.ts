@@ -42,6 +42,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const catRaw = pick(r, ['category', 'Category']);
       const pfcRaw = pick(r, ['pfc', 'Personal Finance Category']);
       const currencyRaw = pick(r, ['currency', 'Currency']) || 'GBP';
+      const timeRaw = pick(r, ['time', 'Time', 'Transaction Time']);
 
       const amtNum = Number(String(amountRaw || '0').replace(/,/g, ''));
       const cat: string[] =
@@ -51,10 +52,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           ? catRaw
           : [];
 
+      let datetime: string | null = null;
+      if (dateStr && timeRaw) {
+        const tClean = String(timeRaw).trim();
+        const maybeIso = new Date(`${dateStr} ${tClean}`);
+        if (!isNaN(maybeIso.getTime())) {
+          datetime = maybeIso.toISOString();
+        }
+      }
+
       return {
         id: r.id || r.transaction_id || `csv-${i}-${dateStr}`,
         date: dateStr,
-        datetime: null,
+        datetime,
         amount: isFinite(amtNum) ? amtNum : 0,
         merchant_name: String(merchantRaw || 'Unknown'),
         mcc: mccRaw ? String(mccRaw) : null,
@@ -69,8 +79,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     try { fs.unlinkSync(filepath); } catch {}
 
-    // Redirect to dashboard
-    res.writeHead(303, { Location: '/dashboard' });
+    // Redirect to loading (then dashboard)
+    res.writeHead(303, { Location: '/loading' });
     res.end();
   } catch (e: any) {
     res.status(400).send('Invalid CSV format');

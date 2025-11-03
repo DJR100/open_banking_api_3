@@ -59,7 +59,7 @@ function ConnectPage() {
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                 disabled: !ready || !linkToken,
                 onClick: ()=>open(),
-                className: "px-4 py-2 rounded bg-black text-white disabled:opacity-50",
+                className: "px-4 py-2 rounded bg-[#4169E1] hover:bg-[#3657c7] text-white disabled:opacity-50 shadow-md",
                 children: linkToken ? 'Connect with Plaid' : 'Preparing…'
             }, void 0, false, {
                 fileName: "[project]/app/page.tsx",
@@ -125,7 +125,7 @@ function ConnectPage() {
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                className: "ml-2 px-3 py-1 rounded border",
+                                className: "ml-2 px-3 py-1 rounded border border-[#4169E1] text-[#4169E1] hover:bg-[#4169E1] hover:text-white transition-colors",
                                 type: "submit",
                                 children: "Upload"
                             }, void 0, false, {
@@ -145,7 +145,7 @@ function ConnectPage() {
                             "Need sample data? Download",
                             ' ',
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
-                                className: "underline",
+                                className: "underline text-[#4169E1]",
                                 href: "/samples/small.csv",
                                 children: "small.csv"
                             }, void 0, false, {
@@ -156,7 +156,7 @@ function ConnectPage() {
                             " or",
                             ' ',
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
-                                className: "underline",
+                                className: "underline text-[#4169E1]",
                                 href: "/samples/large.csv",
                                 children: "large.csv"
                             }, void 0, false, {

@@ -4,4 +4,13 @@ html, body {
   height: 100%;
 }
 
+:root {
+  --brand: #4169E1;
+}
+
+::selection {
+  background: var(--brand);
+  color: white;
+}
+
 

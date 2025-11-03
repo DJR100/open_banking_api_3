@@ -7,6 +7,7 @@ import { bucket, topMerchants, totalSpend } from '@/lib/classify';
 
 type Period = 'year' | 'month' | 'week' | 'day';
 const gbp = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' });
+const brand = '#4169E1';
 
 export default function Dashboard() {
   const [txns, setTxns] = useState<any[]>([]);
@@ -37,7 +38,7 @@ export default function Dashboard() {
         <select
           value={period}
           onChange={e => setPeriod(e.target.value as Period)}
-          className="border px-2 py-1 rounded"
+          className="border px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-[#4169E1]"
         >
           <option value="year">Year</option>
           <option value="month">Month</option>
@@ -46,7 +47,7 @@ export default function Dashboard() {
         </select>
       </div>
 
-      <div className="text-lg font-medium mb-4">Total: {gbp.format(totalValue)}</div>
+      <div className="text-lg font-medium mb-4 text-[#4169E1]">Total: {gbp.format(totalValue)}</div>
 
       {loading ? (
         <div className="text-gray-500">Loading…</div>
@@ -59,7 +60,7 @@ export default function Dashboard() {
           No gambling transactions detected for this period.
         </div>
       ) : (
-        <div className="mb-8">
+        <div className="mb-8 bg-white/90 backdrop-blur rounded-lg border border-gray-200 p-4 shadow-sm">
           <Bar
             data={{
               labels,
@@ -67,7 +68,9 @@ export default function Dashboard() {
                 {
                   label: 'Gambling Spend',
                   data: dataVals,
-                  backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                  backgroundColor: brand,
+                  borderColor: '#2745A8',
+                  borderWidth: 1,
                 },
               ],
             }}
@@ -89,9 +92,9 @@ export default function Dashboard() {
             No gambling transactions in the last 90 days.
           </div>
         ) : (
-          <div className="border rounded overflow-hidden">
+          <div className="border rounded overflow-hidden shadow-sm">
             <table className="w-full text-sm">
-              <thead className="bg-gray-50">
+              <thead className="bg-[#4169E1] text-white">
                 <tr>
                   <th className="text-left px-3 py-2">Merchant</th>
                   <th className="text-right px-3 py-2">Spend</th>

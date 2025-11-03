@@ -32,7 +32,7 @@ export default function ConnectPage() {
       <button
         disabled={!ready || !linkToken}
         onClick={() => open()}
-        className="px-4 py-2 rounded bg-black text-white disabled:opacity-50"
+        className="px-4 py-2 rounded bg-[#4169E1] hover:bg-[#3657c7] text-white disabled:opacity-50 shadow-md"
       >
         {linkToken ? 'Connect with Plaid' : 'Preparing…'}
       </button>
@@ -47,12 +47,12 @@ export default function ConnectPage() {
         <p className="mb-2">Upload a statement (CSV):</p>
         <form action="/api/upload-csv" method="post" encType="multipart/form-data">
           <input className="border p-1 rounded" type="file" name="file" accept=".csv" required />
-          <button className="ml-2 px-3 py-1 rounded border" type="submit">Upload</button>
+          <button className="ml-2 px-3 py-1 rounded border border-[#4169E1] text-[#4169E1] hover:bg-[#4169E1] hover:text-white transition-colors" type="submit">Upload</button>
         </form>
         <div className="text-sm text-gray-500 mt-2">
           Need sample data? Download{' '}
-          <a className="underline" href="/samples/small.csv">small.csv</a> or{' '}
-          <a className="underline" href="/samples/large.csv">large.csv</a>.
+          <a className="underline text-[#4169E1]" href="/samples/small.csv">small.csv</a> or{' '}
+          <a className="underline text-[#4169E1]" href="/samples/large.csv">large.csv</a>.
         </div>
       </div>
 

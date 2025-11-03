@@ -1,6 +1,29 @@
 # Open Banking API 3
 
-A fresh repository for building an open banking API. This README will evolve as the project structure and tech stack are defined.
+Gambling Spend Demo (Hackathon v1)
+
+Quickstart
+
+- Install deps:
+
+  npm i
+
+- Create `.env.local`:
+
+  PLAID_CLIENT_ID=69032b6c8452e70020cf107a
+  PLAID_SANDBOX_SECRET=49314ca5a4972398fe8eb5d8245d10
+
+- Dev:
+
+  npm run dev
+
+- Visit http://localhost:3000
+
+Notes
+
+- Connect via Plaid Sandbox or upload CSV.
+- Data is stored in-process only; refresh clears it.
+- CSV spend: negatives are debits; gambling detected via MCC 7995, PFC/category includes "Gambling", or keyword regex.
 
 ## Getting Started
 

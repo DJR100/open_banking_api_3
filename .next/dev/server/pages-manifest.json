@@ -1,0 +1,8 @@
+{
+  "/_app": "pages/_app.js",
+  "/_document": "pages/_document.js",
+  "/_error": "pages/_error.js",
+  "/api/create-link-token": "pages/api/create-link-token.js",
+  "/api/transactions": "pages/api/transactions.js",
+  "/api/upload-csv": "pages/api/upload-csv.js"
+}

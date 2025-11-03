@@ -1,0 +1,46 @@
+{
+  "name": "open_banking_api_003",
+  "version": "1.0.0",
+  "description": "A fresh repository for building an open banking API. This README will evolve as the project structure and tech stack are defined.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DJR100/open_banking_api_3.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DJR100/open_banking_api_3/issues"
+  },
+  "homepage": "https://github.com/DJR100/open_banking_api_3#readme",
+  "dependencies": {
+    "autoprefixer": "^10.4.21",
+    "chart.js": "^4.5.1",
+    "csv-parse": "^6.1.0",
+    "formidable": "^3.5.4",
+    "next": "^16.0.1",
+    "plaid": "^39.1.0",
+    "postcss": "^8.5.6",
+    "react": "^19.2.0",
+    "react-chartjs-2": "^5.3.1",
+    "react-dom": "^19.2.0",
+    "react-plaid-link": "^4.1.1",
+    "tailwindcss": "^4.1.16"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.16",
+    "@types/node": "^24.10.0",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "eslint": "^9.39.0",
+    "eslint-config-next": "^16.0.1",
+    "typescript": "^5.9.3"
+  }
+}

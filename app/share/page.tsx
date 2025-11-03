@@ -10,7 +10,15 @@ export default function Share() {
   const ref = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
-  useEffect(() => { fetch('/api/transactions').then(r => r.json()).then(d => setTxns(d.transactions || [])); }, []);
+  useEffect(() => {
+    try {
+      const ls = localStorage.getItem('override_txns');
+      if (ls) setTxns(JSON.parse(ls));
+    } catch {}
+    fetch('/api/transactions').then(r => r.json()).then(d => {
+      if (Array.isArray(d.transactions) && d.transactions.length) setTxns(d.transactions);
+    });
+  }, []);
   const loss = useMemo(() => totalSpend(txns), [txns]);
   const pctBelow = useMemo(() => percentileRank(loss), [loss]);
 

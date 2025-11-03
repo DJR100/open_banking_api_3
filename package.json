@@ -21,8 +21,10 @@
   },
   "homepage": "https://github.com/DJR100/open_banking_api_3#readme",
   "dependencies": {
+    "@upstash/redis": "^1.35.6",
     "autoprefixer": "^10.4.21",
     "chart.js": "^4.5.1",
+    "cookie": "^1.0.2",
     "csv-parse": "^6.1.0",
     "formidable": "^3.5.4",
     "html-to-image": "^1.11.13",

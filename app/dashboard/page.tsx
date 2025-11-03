@@ -22,7 +22,23 @@ export default function Dashboard() {
 
   useEffect(() => {
     setLoading(true);
-    fetch('/api/transactions').then(r => r.json()).then(d => setTxns(d.transactions || [])).finally(() => setLoading(false));
+    try {
+      const ls = localStorage.getItem('override_txns');
+      if (ls) setTxns(JSON.parse(ls));
+    } catch {}
+    fetch('/api/transactions')
+      .then(r => r.json())
+      .then(d => {
+        if (Array.isArray(d.transactions) && d.transactions.length) {
+          setTxns(d.transactions);
+        } else {
+          try {
+            const ls = localStorage.getItem('override_txns');
+            if (ls) setTxns(JSON.parse(ls));
+          } catch {}
+        }
+      })
+      .finally(() => setLoading(false));
   }, []);
 
   const totals = useMemo(() => bucket(txns, period), [txns, period]);

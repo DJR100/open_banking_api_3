@@ -43,20 +43,21 @@ export function mostActiveTime(transactions: any[]) {
 }
 
 export function percentileRank(yourLoss: number) {
-  const pool = [200, 450, 680, 820, 1100, 1500, 2200, 3400, 4700, 6500, 9200, yourLoss].sort((a,b)=>a-b);
-  const rank = pool.indexOf(yourLoss) + 1;
-  return Math.round((rank / pool.length) * 100);
+  // Return the percentage of users with losses strictly BELOW yours (0..99)
+  // Using a mock global pool for demo; exclude yourLoss to avoid 100% edge.
+  const pool = [200, 450, 680, 820, 1100, 1500, 2200, 3400, 4700, 6500, 9200];
+  const below = pool.filter(v => v < yourLoss).length;
+  const pctBelow = Math.round((below / pool.length) * 100);
+  return Math.min(99, Math.max(0, pctBelow));
 }
 
 export function realityCheck(loss: number) {
   const tescoMealDeal = Math.floor(loss / 3.5);
   const sp500Year = Math.round(loss * 1.15);
-  const loveIslandSeason = Math.max(1, Math.floor(loss / 500));
   const vegasTicket = loss >= 450 ? 'A one-way ticket to Vegas (and lose more there)' : 'A domestic flight (to think about your choices)';
   return {
     invested: sp500Year,
     meals: tescoMealDeal,
-    entertainment: loveIslandSeason,
     travel: vegasTicket,
   };
 }

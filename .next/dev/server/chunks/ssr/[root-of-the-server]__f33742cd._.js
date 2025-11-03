@@ -163,6 +163,8 @@ function mostActiveTime(transactions) {
     };
 }
 function percentileRank(yourLoss) {
+    // Return the percentage of users with losses strictly BELOW yours (0..99)
+    // Using a mock global pool for demo; exclude yourLoss to avoid 100% edge.
     const pool = [
         200,
         450,
@@ -174,21 +176,19 @@ function percentileRank(yourLoss) {
         3400,
         4700,
         6500,
-        9200,
-        yourLoss
-    ].sort((a, b)=>a - b);
-    const rank = pool.indexOf(yourLoss) + 1;
-    return Math.round(rank / pool.length * 100);
+        9200
+    ];
+    const below = pool.filter((v)=>v < yourLoss).length;
+    const pctBelow = Math.round(below / pool.length * 100);
+    return Math.min(99, Math.max(0, pctBelow));
 }
 function realityCheck(loss) {
     const tescoMealDeal = Math.floor(loss / 3.5);
     const sp500Year = Math.round(loss * 1.15);
-    const loveIslandSeason = Math.max(1, Math.floor(loss / 500));
     const vegasTicket = loss >= 450 ? 'A one-way ticket to Vegas (and lose more there)' : 'A domestic flight (to think about your choices)';
     return {
         invested: sp500Year,
         meals: tescoMealDeal,
-        entertainment: loveIslandSeason,
         travel: vegasTicket
     };
 }
@@ -246,7 +246,7 @@ function Share() {
     const loss = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMemo"])(()=>(0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$classify$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["totalSpend"])(txns), [
         txns
     ]);
-    const pct = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMemo"])(()=>(0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$insights$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["percentileRank"])(loss), [
+    const pctBelow = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMemo"])(()=>(0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$insights$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["percentileRank"])(loss), [
         loss
     ]);
     const level = loss > 10000 ? 'High-Roller Catastrophe' : loss > 5000 ? 'Intermediate Disaster' : loss > 1000 ? 'Mild Mishap' : 'Beginner’s Luck';
@@ -326,7 +326,7 @@ function Share() {
                                         "I lost ",
                                         gbp0.format(loss),
                                         " this year — Top ",
-                                        nf.format(pct),
+                                        nf.format(Math.max(1, 100 - pctBelow)),
                                         "% of Gamblers."
                                     ]
                                 }, void 0, true, {
@@ -343,7 +343,7 @@ function Share() {
                                 className: "mt-4 text-xs text-[#fbbf24]",
                                 children: [
                                     "• Top ",
-                                    pct,
+                                    Math.max(1, 100 - pctBelow),
                                     "% Globally"
                                 ]
                             }, void 0, true, {

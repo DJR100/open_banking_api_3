@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import 'chart.js/auto';
-import { bucket } from '@/lib/classify';
+import { bucket, topMerchants } from '@/lib/classify';
 import {
   totalLost as sumLoss, biggestLosingWeek, favouriteVenue,
   percentileRank, realityCheck, leaderboardRows
@@ -35,6 +35,9 @@ export default function Dashboard() {
   const pct = useMemo(() => percentileRank(loss), [loss]);
   const rc = useMemo(() => realityCheck(loss), [loss]);
   const rows = useMemo(() => leaderboardRows(txns, true).slice(0, 4), [txns]);
+  const merch90All = useMemo(() => topMerchants(txns, 90), [txns]);
+  const [showAllMerch, setShowAllMerch] = useState(false);
+  const merch90 = useMemo(() => (showAllMerch ? merch90All : merch90All.slice(0, 3)), [showAllMerch, merch90All]);
   const cards = useMemo(() => [
     {
       key: 'invested',
@@ -53,14 +56,6 @@ export default function Dashboard() {
       ),
     },
     {
-      key: 'entertainment',
-      content: (
-        <>
-          Equivalent to: Funding <span className="font-semibold">{intFmt.format(rc.entertainment)}</span> Love Island season in bets
-        </>
-      ),
-    },
-    {
       key: 'travel',
       content: (
         <>
@@ -71,7 +66,7 @@ export default function Dashboard() {
   ], [rc]);
   const [rcIdx, setRcIdx] = useState(0);
   useEffect(() => {
-    const id = setInterval(() => setRcIdx(i => (i + 1) % cards.length), 4000);
+    const id = setInterval(() => setRcIdx(i => (i + 1) % cards.length), 3000);
     return () => clearInterval(id);
   }, [cards.length]);
 
@@ -175,6 +170,43 @@ export default function Dashboard() {
           <div className="mt-2 text-xs text-gray-500">Click card to skip</div>
         </div>
         <style>{`@keyframes popIn{0%{opacity:0;transform:translateY(6px) scale(.98)}100%{opacity:1;transform:translateY(0) scale(1)}}`}</style>
+      </section>
+
+      {/* Top vendors (90 days) */}
+      <section className="rounded-lg border border-white/10 bg-[#0f1115] p-6 mb-6 shadow-[0_0_40px_#ff17441a]">
+        <h2 className="text-lg font-semibold mb-2">Top vendors (90 days)</h2>
+        {merch90.length === 0 ? (
+          <div className="text-gray-500">No gambling transactions in the last 90 days.</div>
+        ) : (
+          <div className="border border-white/10 rounded overflow-hidden shadow-sm">
+            <table className="w-full text-sm">
+              <thead className="bg-[#ff1744] text-white">
+                <tr>
+                  <th className="text-left px-4 py-2">Merchant</th>
+                  <th className="text-right px-4 py-2">Spend</th>
+                </tr>
+              </thead>
+              <tbody>
+                {merch90.map((m) => (
+                  <tr key={m.merchant} className="border-t border-white/10 hover:bg-white/5">
+                    <td className="px-4 py-2">{m.merchant}</td>
+                    <td className="px-4 py-2 text-right">{gbp.format(m.amount)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            {merch90All.length > 3 && (
+              <div className="p-3 text-center border-t border-white/10 bg-black/20">
+                <button
+                  onClick={() => setShowAllMerch(s => !s)}
+                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded border border-[#ff1744] text-[#ff1744] hover:bg-[#ff1744] hover:text-white transition-colors"
+                >
+                  {showAllMerch ? 'Show top 3' : `Show all (${merch90All.length})`}
+                </button>
+              </div>
+            )}
+          </div>
+        )}
       </section>
 
       <section className="rounded-lg border border-white/10 bg-[#0f1115] p-4">

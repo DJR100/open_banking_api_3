@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { usePlaidLink } from 'react-plaid-link';
 
 export default function ConnectPage() {
@@ -53,9 +53,36 @@ export default function ConnectPage() {
 
       <div className="mt-2">
         <p className="mb-2">Upload a statement (CSV):</p>
-        <form action="/api/upload-csv" method="post" encType="multipart/form-data" className="flex justify-center">
-          <input className="border border-white/10 bg-black/20 text-white p-1 rounded" type="file" name="file" accept=".csv" required />
-          <button className="ml-2 px-3 py-1 rounded border border-[#ff1744] text-[#ff1744] hover:bg-[#ff1744] hover:text-white transition-colors" type="submit">Upload</button>
+        <form action="/api/upload-csv" method="post" encType="multipart/form-data" className="flex justify-center items-center gap-3">
+          {/* Accessible hidden file input */}
+          {/* Using a custom trigger to avoid the default browser style */}
+          {(() => {
+            const fileRef = useRef<HTMLInputElement | null>(null);
+            const [fileName, setFileName] = useState('');
+            return (
+              <>
+                <input
+                  ref={fileRef}
+                  id="csv-file"
+                  type="file"
+                  name="file"
+                  accept=".csv"
+                  className="hidden"
+                  required
+                  onChange={(e) => setFileName(e.currentTarget.files?.[0]?.name || '')}
+                />
+                <button
+                  type="button"
+                  onClick={() => fileRef.current?.click()}
+                  className="px-3 py-1.5 rounded border border-white/20 bg-black/30 text-white hover:border-[#ff1744] hover:text-[#ff1744] transition-colors"
+                >
+                  Choose file
+                </button>
+                <span className="text-sm text-gray-400 max-w-[240px] truncate">{fileName || 'No file selected'}</span>
+                <button className="px-3 py-1.5 rounded border border-[#ff1744] text-[#ff1744] hover:bg-[#ff1744] hover:text-white transition-colors" type="submit">Upload</button>
+              </>
+            );
+          })()}
         </form>
         <div className="text-sm text-gray-500 mt-2">
           Need sample data? Download{' '}
